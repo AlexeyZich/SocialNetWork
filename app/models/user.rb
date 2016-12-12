@@ -35,6 +35,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :friend_requests, foreign_key: :requesting_user_id
+  has_many :groups
+  # has_many :albums
+  # has_many :posts, as: :postable
+  # has_many :likes, as: :likeable
+  has_and_belongs_to_many :hobbies
+
   validates :name, length: { in: 2..15}, format: { with: /\A[A-zА-я]+\z/,
                            message: 'допустимы только буквы' }
   validates :surname, length: { in: 2..20},  format: { with: /\A[A-zА-я]+\z/, 
@@ -44,15 +51,7 @@ class User < ApplicationRecord
                               message: 'допустимы только буквы' }
   validates :city, format: { with: /\A[A-zА-я]+\z/, 
                            message: 'допустимы только буквы' }
-
-  # has_many :friend_requests, foreign_key: :requesting_user_id
-
-  # def conversations
-  #   Conversation.where('sender_id = ? OR recipient_id = ?', id, id)
-  # end
-  # has_many :groups
-  # has_many :albums
-  # has_many :posts, as: :postable
-  # has_many :likes, as: :likeable
-  # has_and_belongs_to_many :hobbies
+  def conversations
+    Conversation.where('sender_id = ? OR recipient_id = ?', id, id)
+  end
 end

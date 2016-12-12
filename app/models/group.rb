@@ -16,4 +16,7 @@
 
 class Group < ApplicationRecord
   belongs_to :user
+  validates :title, format: { with: /\A[A-zА-я]+\z/, 
+                              message: 'допустимы только буквы' }
+  # has_many :likes, as: :likeable
 end
