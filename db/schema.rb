@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212021049) do
+ActiveRecord::Schema.define(version: 20161212022435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 20161212021049) do
     t.datetime "updated_at",   null: false
     t.index ["recipient_id"], name: "index_friend_requests_on_recipient_id", using: :btree
     t.index ["sender_id"], name: "index_friend_requests_on_sender_id", using: :btree
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_groups_on_user_id", using: :btree
   end
 
   create_table "hobbies", force: :cascade do |t|
@@ -68,5 +77,6 @@ ActiveRecord::Schema.define(version: 20161212021049) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "groups", "users"
   add_foreign_key "hobbies", "users"
 end
