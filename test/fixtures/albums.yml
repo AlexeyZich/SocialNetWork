@@ -1,0 +1,30 @@
+# == Schema Information
+#
+# Table name: albums
+#
+#  id             :integer          not null, primary key
+#  albumable_type :string
+#  albumable_id   :integer
+#  title          :string
+#  description    :text
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+# Indexes
+#
+#  index_albums_on_albumable_type_and_albumable_id  (albumable_type,albumable_id)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  albumable: one
+  albumable_type: Albumable
+  title: MyString
+  description: MyText
+
+two:
+  albumable: two
+  albumable_type: Albumable
+  title: MyString
+  description: MyText

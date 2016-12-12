@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212022435) do
+ActiveRecord::Schema.define(version: 20161212050255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "albums", force: :cascade do |t|
+    t.string   "albumable_type"
+    t.integer  "albumable_id"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["albumable_type", "albumable_id"], name: "index_albums_on_albumable_type_and_albumable_id", using: :btree
+  end
 
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
@@ -53,6 +63,19 @@ ActiveRecord::Schema.define(version: 20161212022435) do
     t.index ["value"], name: "index_hobbies_on_value", unique: true, using: :btree
   end
 
+  create_table "posts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "body"
+    t.string   "postable_type"
+    t.integer  "postable_id"
+    t.integer  "repost_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["postable_type", "postable_id"], name: "index_posts_on_postable_type_and_postable_id", using: :btree
+    t.index ["repost_id"], name: "index_posts_on_repost_id", using: :btree
+    t.index ["user_id"], name: "index_posts_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -79,4 +102,5 @@ ActiveRecord::Schema.define(version: 20161212022435) do
 
   add_foreign_key "groups", "users"
   add_foreign_key "hobbies", "users"
+  add_foreign_key "posts", "users"
 end
