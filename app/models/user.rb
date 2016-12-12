@@ -35,9 +35,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :name, length: { in 2..15}, format: { with: /\A[A-zА-я]+\z/,
+  validates :name, length: { in: 2..15}, format: { with: /\A[A-zА-я]+\z/,
                            message: 'допустимы только буквы' }
-  validates :surname, length: { in 2..20},  format: { with: /\A[A-zА-я]+\z/, 
+  validates :surname, length: { in: 2..20},  format: { with: /\A[A-zА-я]+\z/, 
                               message: 'допустимы только буквы' }
   validates :age, numericality: true
   validates :country, format: { with: /\A[A-zА-я]+\z/, 
