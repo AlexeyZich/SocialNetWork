@@ -24,5 +24,4 @@ class Post < ApplicationRecord
   belongs_to :postable, polymorphic: true # User, Group
   belongs_to :repost, class_name: 'Post'
   has_many :likes, as: :likeable
-  validates :title, length: { maximum 1000}
 end
