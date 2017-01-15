@@ -42,8 +42,10 @@ class User < ApplicationRecord
   has_many :likes, as: :likeable
   has_and_belongs_to_many :hobbies
 
-  # validates :name, length: { in: 2..15}, format: { with: /\A[A-zА-я]+\z/,
-  #                          message: 'допустимы только буквы' }
+  MALE_SET = [['Мужской', 1], ['Женский', 0]].freeze
+
+  validates :name, length: { in: 2..15}, format: { with: /\A[A-zА-я]+\z/,
+                           message: 'допустимы только буквы' }
   # validates :surname, length: { in: 2..20},  format: { with: /\A[A-zА-я]+\z/, 
   #                             message: 'допустимы только буквы' }
   # validates :age, numericality: true

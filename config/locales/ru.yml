@@ -1,2 +1,12 @@
 ru:
   hello: 'Привет'
+  activerecord:
+    attributes:
+      user:
+        name: 'Имя'
+        surname: 'Фамилия'
+        age: 'Возраст'
+        male: 'Пол'
+        country: 'Страна' 
+        city: 'Город'
+        description: 'О себе'

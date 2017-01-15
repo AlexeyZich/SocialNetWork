@@ -1,2 +1,29 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div>
+  Email <%= @user.email %>
+</div>
+<div>
+  Имя: <%= @user.name %>
+</div>
+<div>
+  Фамилия: <%= @user.surname %>
+</div>
+<div>
+  Возраст: <%= @user.age %>
+</div>
+<div>
+  Пол: <%= @user.male %>
+</div>
+<div>
+  Страна: <%= @user.country %>
+</div>
+<div>
+  Город: <%= @user.city %>
+</div>
+<div>
+  О себе: <%= @user.description %>
+</div>
+
+<% if @user.id == current_user.id %>
+  <%= link_to 'Редактировать', edit_user_path %>
+<% end %>
+  
