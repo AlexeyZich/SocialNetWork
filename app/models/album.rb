@@ -16,9 +16,10 @@
 #
 
 class Album < ApplicationRecord
-  belongs_to :albumable, polymorphic: true  # User, Group
+  belongs_to :albumable, polymorphic: true # User, Group
+  has_many :photos, as: :imageable
   validates :title, format: { with: /\A[A-zА-я]+\z/, 
-                              message: 'допустимы только буквы' }
+                            message: 'допустимы только буквы' }
   def user
     return albumable if albumable_type == 'User'
     albumable.user

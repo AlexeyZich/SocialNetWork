@@ -11,6 +11,7 @@
 #
 # Indexes
 #
+#  index_likes_on_likeable_id_and_likeable_type  (likeable_id,likeable_type) UNIQUE
 #  index_likes_on_likeable_type_and_likeable_id  (likeable_type,likeable_id)
 #  index_likes_on_user_id                        (user_id)
 #

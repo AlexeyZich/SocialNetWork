@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212054554) do
+ActiveRecord::Schema.define(version: 20161212175956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,16 +41,18 @@ ActiveRecord::Schema.define(version: 20161212054554) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
+    t.index ["sender_id", "recipient_id"], name: "index_conversations_on_sender_id_and_recipient_id", unique: true, using: :btree
     t.index ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
   end
 
   create_table "friend_requests", force: :cascade do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
-    t.boolean  "approved"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.boolean  "approved",     default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.index ["recipient_id"], name: "index_friend_requests_on_recipient_id", using: :btree
+    t.index ["sender_id", "recipient_id"], name: "index_friend_requests_on_sender_id_and_recipient_id", unique: true, using: :btree
     t.index ["sender_id"], name: "index_friend_requests_on_sender_id", using: :btree
   end
 
@@ -73,14 +75,41 @@ ActiveRecord::Schema.define(version: 20161212054554) do
     t.index ["value"], name: "index_hobbies_on_value", unique: true, using: :btree
   end
 
+  create_table "hobbies_users", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "hobby_id"
+    t.index ["hobby_id"], name: "index_hobbies_users_on_hobby_id", using: :btree
+    t.index ["user_id"], name: "index_hobbies_users_on_user_id", using: :btree
+  end
+
   create_table "likes", force: :cascade do |t|
     t.string   "likeable_type"
     t.integer  "likeable_id"
     t.integer  "user_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.index ["likeable_id", "likeable_type"], name: "index_likes_on_likeable_id_and_likeable_type", unique: true, using: :btree
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable_type_and_likeable_id", using: :btree
     t.index ["user_id"], name: "index_likes_on_user_id", using: :btree
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "conversation_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.boolean  "read",            default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+    t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.string   "imageable_type"
+    t.integer  "imageable_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["imageable_type", "imageable_id"], name: "index_photos_on_imageable_type_and_imageable_id", using: :btree
   end
 
   create_table "posts", force: :cascade do |t|
@@ -122,8 +151,15 @@ ActiveRecord::Schema.define(version: 20161212054554) do
 
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "conversations", "users", column: "recipient_id"
+  add_foreign_key "conversations", "users", column: "sender_id"
+  add_foreign_key "friend_requests", "users", column: "recipient_id"
+  add_foreign_key "friend_requests", "users", column: "sender_id"
   add_foreign_key "groups", "users"
   add_foreign_key "hobbies", "users"
   add_foreign_key "likes", "users"
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
+  add_foreign_key "posts", "posts", column: "repost_id"
   add_foreign_key "posts", "users"
 end

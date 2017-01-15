@@ -20,8 +20,13 @@
 
 class Post < ApplicationRecord
   belongs_to :user
-  belongs_to :postable, polymorphic: true
   belongs_to :postable, polymorphic: true # User, Group
   belongs_to :repost, class_name: 'Post'
   has_many :likes, as: :likeable
+  has_many :photos, as: :imageable
+
+  validates :title, length: { maximum: 500 }
+
+  # def repost?
+  # end
 end

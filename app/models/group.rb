@@ -19,5 +19,5 @@ class Group < ApplicationRecord
   validates :title, format: { with: /\A[A-zА-я]+\z/, 
                               message: 'допустимы только буквы' }
   has_many :albums, as: :albumable
-  # has_many :likes, as: :likeable
+  has_many :likes, as: :likeable
 end

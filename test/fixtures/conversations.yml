@@ -10,8 +10,9 @@
 #
 # Indexes
 #
-#  index_conversations_on_recipient_id  (recipient_id)
-#  index_conversations_on_sender_id     (sender_id)
+#  index_conversations_on_recipient_id                (recipient_id)
+#  index_conversations_on_sender_id                   (sender_id)
+#  index_conversations_on_sender_id_and_recipient_id  (sender_id,recipient_id) UNIQUE
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

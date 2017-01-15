@@ -19,4 +19,7 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :post
   has_many :likes, as: :likeable
+  has_many :photos, as: :imageable
+
+  validates :body, length: { maximum: 500 }
 end

@@ -8,5 +8,10 @@ class CreateConversations < ActiveRecord::Migration[5.0]
     end
     add_index :conversations, :sender_id
     add_index :conversations, :recipient_id
+    
+    add_foreign_key :conversations, :users, column: :sender_id
+    add_foreign_key :conversations, :users, column: :recipient_id
+
+    add_index :conversations, [:sender_id, :recipient_id], unique: true
   end
 end
