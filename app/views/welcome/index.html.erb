@@ -1,0 +1,14 @@
+<%= link_to 'Вход', new_user_session_path %>
+<%= link_to 'Регистрация', new_user_registration_path %>
+
+<%= current_user && current_user.email %>
+
+<%= current_user ? current_user.email : nil %>
+
+<% if current_user.present? %>
+  <div style="height: 100; width: 100; background-color: red;">
+    Юзер есть
+  </div>
+<% else %>
+  Юзера нет
+<% end %>
