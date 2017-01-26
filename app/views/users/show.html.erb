@@ -1,11 +1,11 @@
 <div>
-  Email <%= @user.email %>
-</div>
-<div>
   Имя: <%= @user.name %>
 </div>
 <div>
   Фамилия: <%= @user.surname %>
+</div>
+<div>
+  <%= image_tag @user.avatar.url(:medium) %>
 </div>
 <div>
   Возраст: <%= @user.age %>

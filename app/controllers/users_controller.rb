@@ -25,9 +25,8 @@ class UsersController < ApplicationController
 
   def create_post
     @user = User.find(params[:id])
-
-    @post = @user.posts.new
     @post.assign_attributes(post_params)
+    @post = @user.posts.new
     @post.user = current_user
     if @post.save
       flash[:success] = 'Запись создана'
@@ -67,7 +66,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :surname, :age, :male, :city, :country, :description)
+    params.require(:user).permit(:name, :surname, :age, :male, :city, :country, :description, :avatar)
   end
 
   def post_params
