@@ -44,6 +44,9 @@ class User < ApplicationRecord
 
   MALE_SET = [['Мужской', 1], ['Женский', 0], ['Не указан', 'nil']].freeze
 
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+
   validates :name, length: { in: 2..15}, format: { with: /\A[A-zА-я]+\z/,
                            message: 'допустимы только буквы' }
   # validates :surname, length: { in: 2..20},  format: { with: /\A[A-zА-я]+\z/, 
