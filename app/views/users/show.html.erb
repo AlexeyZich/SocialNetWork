@@ -22,8 +22,38 @@
 <div>
   О себе: <%= @user.description %>
 </div>
+<div>
+  <% if @user != current_user %>
+    <% if !current_user.friends.include? @user %>
+      <%= form_for :user, url: add_to_friend_user_path(@user.id), method: :post do |f| %>
+        <%= f.submit 'Добавить в друзья' %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if current_user.friends.include? @user%>
+    <%= @user.name %> ваш друг
+  <% end %>
+</div>
+<div>
+  Посты
 
-<% if @user.id == current_user.id %>
-  <%= link_to 'Редактировать', edit_user_path %>
-<% end %>
-  
+  <%= form_for :post, url: create_post_user_path(@user), method: :post do |f| %>
+    <div class="field">
+      <%= f.text_area :body, class: "form-control" %>
+    </div>
+    <div>
+      <%= f.submit "Сохранить", class: "ui blue labeled submit icon button" %>
+    </div>
+  <% end %>
+
+  <% if @post.present? %>
+    <%= @post.errors.full_messages  %>
+  <% end %>
+
+  <% @user.posts.each do |post| %>
+    <%= post.user.name %></br>
+    <%= post.body %></br>
+    <%= post.likes.count %></br>
+    <%= post.photos.count %></br></br>
+  <% end %>
+</div>

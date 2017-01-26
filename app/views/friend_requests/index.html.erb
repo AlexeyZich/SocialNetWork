@@ -1,0 +1,30 @@
+<% if @friend_requests.count != 0 %>
+  <div>Новые заявки в друзья:</div>
+  <ul>
+    <% @friend_requests.each do |fr| %>
+      <% user = fr.sender %>
+
+      <%= render user %>
+
+      <%= form_for :friend_request, url: approve_friend_request_path(fr), method: :put do |f| %>
+        <%= f.submit 'Добавить в друзья' %>
+      <% end %>
+      <%= form_for :friend_request, url: decline_friend_request_path(fr), method: :put do |f| %>
+        <%= f.submit 'Отклонить' %>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @friends.count != 0 %>
+  <div>Друзья:</div>
+  <ul>
+    <% @friends.each do |user| %>
+      <%= render user %>
+
+      <%# TODO: remove from friends %>
+    <% end %>
+  </ul>
+<% else %>
+  <div>У вас еще нет друзей! :(</div>
+<% end %>

@@ -1,1 +1,27 @@
 SIDEBAR
+<div class="basic col-md-4">
+  <div class="col-md-offset-5">
+    <h1>Основа</h1>
+    <button>
+      <%= link_to 'Страница', current_user %>
+    </button></br>
+    <button class="">
+      <%= link_to 'Друзья', friend_requests_path %>
+    </button></br>
+    <button>
+      <a href="">Новости</a>
+    </button></br>
+    <button>
+      <a href="">Группы</a>
+    </button></br>
+    <button>
+      <a href="">Фотографии</a>
+    </button></br>
+    <button>
+      <%= link_to 'Сообщения', conversations_path %>
+    </button></br>
+    <button>
+      <%= link_to 'Настройки', edit_user_path(current_user) %>
+    </button></br>
+  </div>
+</div>

@@ -48,9 +48,9 @@ ActiveRecord::Schema.define(version: 20161212175956) do
   create_table "friend_requests", force: :cascade do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
-    t.boolean  "approved",     default: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.boolean  "approved"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.index ["recipient_id"], name: "index_friend_requests_on_recipient_id", using: :btree
     t.index ["sender_id", "recipient_id"], name: "index_friend_requests_on_sender_id_and_recipient_id", unique: true, using: :btree
     t.index ["sender_id"], name: "index_friend_requests_on_sender_id", using: :btree

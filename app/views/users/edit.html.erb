@@ -22,7 +22,7 @@
   </div>
   <div class="field">
     <%= f.label :male %>
-    <%= f.select :male, options_for_select(User::MALE_SET, (@user.male ? 1 : 0) ) %>
+    <%= f.select :male, options_for_select(User::MALE_SET, (@user.male.nil? ? 'nil' : (@user.male ? 1 : 0)) ) %>
   </div>
   <div class="field">
     <%= f.label :country %>

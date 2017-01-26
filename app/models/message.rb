@@ -22,4 +22,8 @@ class Message < ApplicationRecord
   has_many :photos, as: :imageable
 
   validates :body, length: { maximum: 500 }
+
+  def message_time
+    created_at.strftime("%m/%d/%y at %l:%M %p")
+  end
 end

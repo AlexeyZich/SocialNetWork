@@ -35,14 +35,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :friend_requests, foreign_key: :requesting_user_id
+  has_many :friend_requests, foreign_key: :recipient_id
   has_many :groups
   has_many :albums, as: :albumable
   has_many :posts, as: :postable
   has_many :likes, as: :likeable
   has_and_belongs_to_many :hobbies
 
-  MALE_SET = [['Мужской', 1], ['Женский', 0]].freeze
+  MALE_SET = [['Мужской', 1], ['Женский', 0], ['Не указан', 'nil']].freeze
 
   validates :name, length: { in: 2..15}, format: { with: /\A[A-zА-я]+\z/,
                            message: 'допустимы только буквы' }
@@ -55,5 +55,12 @@ class User < ApplicationRecord
   #                          message: 'допустимы только буквы' }
   def conversations
     Conversation.where('sender_id = ? OR recipient_id = ?', id, id)
+  end
+
+  def friends
+    users_ids = FriendRequest.where('(sender_id = ? OR recipient_id = ?) AND approved = ?', id, id, true).pluck(:sender_id, :recipient_id)
+    users_ids = users_ids.flatten.uniq - [id]
+
+    User.where(id: users_ids)
   end
 end

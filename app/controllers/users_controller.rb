@@ -13,7 +13,9 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    if @user.update(user_params)
+    @user.assign_attributes(user_params)
+    @user.male = nil if user_params[:male] == 'nil'
+    if @user.save
       flash[:success] = "Изменения сохранены."
       render :edit
     else
@@ -21,8 +23,39 @@ class UsersController < ApplicationController
     end
   end
 
+  def create_post
+    @user = User.find(params[:id])
+
+    @post = @user.posts.new
+    @post.assign_attributes(post_params)
+    @post.user = current_user
+    if @post.save
+      flash[:success] = 'Запись создана'
+      redirect_to @user
+    else
+      flash[:error] = 'Ошибка'
+      redirect_to @user
+    end
+  end
+
   def not_found
     render 'not_found'
+  end
+
+  def add_to_friend
+    @user = User.find(params[:id]) 
+    if !current_user.friends.include? @user
+      if @user.friend_requests.create(sender: current_user)
+        flash[:success] = "Дружба создана"
+        redirect_to @user
+      else
+        flash[:error] = "Дружба не создана"
+        redirect_to @user
+      end
+    else
+      flash[:error] = "Уже в друзьях"
+      redirect_to @user
+    end
   end
 
   protected
@@ -35,5 +68,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :surname, :age, :male, :city, :country, :description)
+  end
+
+  def post_params
+    params.require(:post).permit(:body)
   end
 end
