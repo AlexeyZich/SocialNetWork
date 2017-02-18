@@ -5,10 +5,18 @@ Rails.application.routes.draw do
     member do
       post :add_to_friend
       post :create_post
+      delete :delete_friend
       # /users/:id/add_to_friend
       # /users/2/add_to_friend
       # /users/2/create_post
-      
+    end
+  end
+  
+  resources :groups do
+    member do
+      post :create_post
+      post :subscribe
+      # /groups/:id/create_post
     end
   end
 

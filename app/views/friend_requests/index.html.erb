@@ -10,7 +10,7 @@
         <%= f.submit 'Добавить в друзья' %>
       <% end %>
       <%= form_for :friend_request, url: decline_friend_request_path(fr), method: :put do |f| %>
-        <%= f.submit 'Отклонить' %>
+        <%= f.submit 'Оставить в подписчиках' %>
       <% end %>
     <% end %>
   </ul>
@@ -21,7 +21,7 @@
   <ul>
     <% @friends.each do |user| %>
       <%= render user %>
-
+      <%= link_to 'Удалить из друзей', delete_friend_user_path(user), method: :delete %>
       <%# TODO: remove from friends %>
     <% end %>
   </ul>

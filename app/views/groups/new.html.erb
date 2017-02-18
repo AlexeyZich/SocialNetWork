@@ -1,0 +1,13 @@
+<%= form_for (@group) do |f| %>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  <div>
+      <%= f.submit t(:create_group), class: "ui blue labeled submit icon button" %>
+    </div>
+<% end %>

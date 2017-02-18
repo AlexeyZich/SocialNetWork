@@ -1,0 +1,37 @@
+<%= @group.title %></br>
+<%= @group.description %>
+
+<div>
+  <% if @group.author == current_user %>
+    <div>
+      <%= link_to 'Редактировать группу', edit_group_path(@group) %>  
+    </div>
+  <% end %>
+  <% if !@group.users.include? current_user %>
+    <div>
+      <%= link_to 'Подписаться', subscribe_group_path(@group), method: :post %>  
+    </div>
+  <% end %>
+  <%= form_for :post, url: create_post_group_path(@group), method: :post do |f| %>
+  <div class="field">
+      <%= f.text_area :body, class: "form-control" %>
+    </div>
+    <div>
+      <%= f.submit t(:save), class: "ui blue labeled submit icon button" %>
+    </div>
+    <% end %>
+
+    <% if @post.present? %>
+      <%= @post.errors.full_messages  %>
+    <% end %>
+
+    <% @group.posts.each do |post| %>
+      <%# post.group.title %>
+      <%= post.user.name %></br>
+      <%= post.body %></br>
+      <%= post.likes.count %></br>
+      <%= post.photos.count %></br></br>
+  <% end %>
+  </div>
+
+</div>

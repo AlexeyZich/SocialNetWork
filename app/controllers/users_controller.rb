@@ -25,8 +25,8 @@ class UsersController < ApplicationController
 
   def create_post
     @user = User.find(params[:id])
-    @post.assign_attributes(post_params)
     @post = @user.posts.new
+    @post.assign_attributes(post_params)
     @post.user = current_user
     if @post.save
       flash[:success] = 'Запись создана'
@@ -44,16 +44,32 @@ class UsersController < ApplicationController
   def add_to_friend
     @user = User.find(params[:id]) 
     if !current_user.friends.include? @user
-      if @user.friend_requests.create(sender: current_user)
-        flash[:success] = "Дружба создана"
+      if @user.friend_requests.find_by(sender: current_user).present?
+        flash[:success] = "Заявка уже отправлена"
         redirect_to @user
       else
-        flash[:error] = "Дружба не создана"
-        redirect_to @user
+        if @user.friend_requests.create(sender: current_user)
+          flash[:success] = "Дружба создана"
+          redirect_to @user
+        else
+          flash[:error] = "Дружба не создана"
+          redirect_to @user
+        end
       end
     else
       flash[:error] = "Уже в друзьях"
       redirect_to @user
+    end
+  end
+
+  def delete_friend
+    @user = User.find(params[:id])
+    if current_user.remove_friend(@user)
+      flash[:success] = "Дружба расторгнута"
+      redirect_to :back
+    else
+      flash[:error] = "Не удалось удалить"
+      redirect_to :back
     end
   end
 

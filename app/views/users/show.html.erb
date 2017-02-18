@@ -25,8 +25,12 @@
 <div>
   <% if @user != current_user %>
     <% if !current_user.friends.include? @user %>
-      <%= form_for :user, url: add_to_friend_user_path(@user.id), method: :post do |f| %>
-        <%= f.submit 'Добавить в друзья' %>
+      <% if @user.friend_requests.find_by(sender: current_user).present? %>
+        Заявка уже отправлена
+      <% else %>
+        <%= form_for :user, url: add_to_friend_user_path(@user.id), method: :post do |f| %>
+          <%= f.submit t(:add_to_friends) %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
@@ -42,7 +46,7 @@
       <%= f.text_area :body, class: "form-control" %>
     </div>
     <div>
-      <%= f.submit "Сохранить", class: "ui blue labeled submit icon button" %>
+      <%= f.submit t(:save), class: "ui blue labeled submit icon button" %>
     </div>
   <% end %>
 

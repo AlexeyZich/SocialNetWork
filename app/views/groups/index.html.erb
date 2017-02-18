@@ -1,0 +1,31 @@
+<div>
+  Список групп
+  <button>
+    <%= link_to 'Создать группу', new_group_path%>
+  </button>
+</div>
+<div>
+  <div>
+    Вы автор:
+  </div>
+  <% @authored_groups.each do |group| %>
+    <%= link_to group.title, group %></br>
+    <%= group.description %></br></br>
+  <% end %>
+
+  <div>
+    Предложения:
+  </div>
+  <% @new_groups.each do |group| %>
+    <%= link_to group.title, group %></br>
+    <%= group.description %></br></br>
+  <% end %>
+
+  <div>
+    Ваши группы:
+  </div>
+  <% @groups.each do |group| %>
+    <%= link_to group.title, group %></br>
+    <%= group.description %></br></br>
+  <% end %>
+</div>

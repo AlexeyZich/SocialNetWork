@@ -36,7 +36,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :friend_requests, foreign_key: :recipient_id
-  has_many :groups
+  has_many :authored_groups, foreign_key: :user_id, class_name: 'Group'
+  has_and_belongs_to_many :groups
   has_many :albums, as: :albumable
   has_many :posts, as: :postable
   has_many :likes, as: :likeable
@@ -64,5 +65,13 @@ class User < ApplicationRecord
     users_ids = users_ids.flatten.uniq - [id]
 
     User.where(id: users_ids)
+  end
+
+  def remove_friend(user)
+    fr = friend_requests.where(
+      '(sender_id = ? AND recipient_id = ?) OR (sender_id = ? AND recipient_id = ?)', id, user.id, user.id, id
+    )
+
+    fr.destroy_all
   end
 end
