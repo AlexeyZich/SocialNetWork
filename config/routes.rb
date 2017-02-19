@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     member do
       post :create_post
       post :subscribe
+      delete :unsubscribe
       # /groups/:id/create_post
     end
   end

@@ -21,7 +21,7 @@
 class Group < ApplicationRecord
   belongs_to :author, foreign_key: :user_id, class_name: 'User'
   has_and_belongs_to_many :users
-  validates :title, format: { with: /\A[A-zА-я]+\z/, 
+  validates :title, format: { with: /\A[A-zА-я \d.!?]+\z/, 
                               message: 'допустимы только буквы' }
   has_many :albums, as: :albumable
   has_many :likes, as: :likeable

@@ -16,3 +16,4 @@ ru:
       group:
         title: 'Название'
         description: 'Описание'
+        delete_group: 'Удалить группу'

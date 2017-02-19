@@ -7,6 +7,11 @@
       <%= link_to 'Редактировать группу', edit_group_path(@group) %>  
     </div>
   <% end %>
+  <% if @group.users.include? current_user%>
+    <div>
+      <%= link_to 'Отписаться ', unsubscribe_group_path(@group), method: :delete %>
+    </div>
+  <% end %>
   <% if !@group.users.include? current_user %>
     <div>
       <%= link_to 'Подписаться', subscribe_group_path(@group), method: :post %>  

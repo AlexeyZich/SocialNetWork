@@ -77,6 +77,22 @@ class GroupsController < ApplicationController
     redirect_to @group
   end
 
+  def unsubscribe
+    @group = Group.find(params[:id])
+    if @group.users.include? current_user
+      if @group.users.delete(current_user)
+        flash[:success] = "Вы отписались"
+        redirect_to groups_path
+      else
+        flash[:error] = "Ошибка"
+        redirect_to edit_group_path(@group)
+      end
+    else
+      flash[:error] = "Ошибка"
+      redirect_to edit_group_path(@group)
+    end
+  end
+
   def create_post
     @group = Group.find(params[:id])
     @post = @group.posts.new
