@@ -1,0 +1,10 @@
+<div>Новости</div>
+<div>
+  <ul>
+    <% @posts.each do |post| %>
+      ________<br>
+      <%= render 'news/news', post: post %><br>
+      ________ <br><br>
+    <% end %>
+  </ul>
+</div>

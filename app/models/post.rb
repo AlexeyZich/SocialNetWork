@@ -19,7 +19,7 @@
 #
 
 class Post < ApplicationRecord
-  belongs_to :user
+  belongs_to :author, foreign_key: :user_id, class_name: 'User'
   belongs_to :postable, polymorphic: true # User, Group
   belongs_to :repost, class_name: 'Post', optional: true
   has_many :likes, as: :likeable

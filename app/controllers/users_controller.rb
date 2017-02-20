@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   def show
-    @user = User.find(params[:id]) 
+    @user = User.find(params[:id])
   end
 
   def edit
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @post = @user.posts.new
     @post.assign_attributes(post_params)
-    @post.user = current_user
+    @post.author = current_user
     if @post.save
       flash[:success] = 'Запись создана'
       redirect_to @user

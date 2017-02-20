@@ -23,8 +23,6 @@ class GroupsController < ApplicationController
       redirect_to @group
     else
       flash[:error] = 'Ошибка'
-      puts @group.errors.inspect
-      puts '#' * 30
       redirect_to groups_path
     end
   end
@@ -97,7 +95,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @post = @group.posts.new
     @post.assign_attributes(post_params)
-    @post.user = current_user
+    @post.author = current_user
     if @post.save
       flash[:success] = 'Запись создана'
       redirect_to @group

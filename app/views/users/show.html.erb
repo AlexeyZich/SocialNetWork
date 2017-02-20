@@ -55,7 +55,7 @@
   <% end %>
 
   <% @user.posts.each do |post| %>
-    <%= post.user.name %></br>
+    <%= post.author.name %></br>
     <%= post.body %></br>
     <%= post.likes.count %></br>
     <%= post.photos.count %></br></br>

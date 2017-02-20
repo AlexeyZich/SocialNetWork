@@ -20,8 +20,8 @@ class Album < ApplicationRecord
   has_many :photos, as: :imageable
   validates :title, format: { with: /\A[A-zА-я]+\z/, 
                             message: 'допустимы только буквы' }
-  def user
-    return albumable if albumable_type == 'User'
-    albumable.user
-  end
+  # def user
+  #   return albumable if albumable_type == 'User'
+  #   albumable.author
+  # end
 end

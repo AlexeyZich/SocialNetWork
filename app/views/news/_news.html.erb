@@ -1,0 +1,14 @@
+<% case post.postable_type %>
+<% when 'Group' %>
+  Пост к группе <%= link_to post.postable.title, post.postable %>
+<% when 'User' %>
+  <% if post.postable == post.author %>
+    Пользователь <%= link_to post.postable.name, post.postable %> опубликовал у себя на стене
+  <% else %>
+    Пользователь <%= link_to post.author.name, post.author %> опукбликовал запись на стене у <%= link_to post.postable.name, post.postable %>
+    
+  <% end %>
+<% end %>
+<br>
+<%= post.author.name %>:
+<%= post.body %>
