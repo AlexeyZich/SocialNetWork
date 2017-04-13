@@ -1,29 +1,33 @@
 <div>
+  <div>
+    <%= link_to 'Создать группу', new_group_path, class: 'btn btn-default'%>
+  </div>
   Список групп
-  <button>
-    <%= link_to 'Создать группу', new_group_path%>
-  </button>
 </div>
-<div>
+<div class="col-sm-12">
+  Вы автор:
   <div>
-    Вы автор:
+    <% @authored_groups.each do |group| %>
+      <%= link_to group.title, group %></br>
+      <%= group.description %></br></br>
+    <% end %>
   </div>
-  <% @authored_groups.each do |group| %>
-    <%= link_to group.title, group %></br>
-    <%= group.description %></br></br>
-  <% end %>
+</div>
 
-  <div>
-    Предложения:
-  </div>
+<div class="col-sm-12">
+  Предложения:
+</div>
+<div class="col-sm-12">
   <% @new_groups.each do |group| %>
     <%= link_to group.title, group %></br>
     <%= group.description %></br></br>
   <% end %>
+</div>
 
-  <div>
+<div class="col-sm-12">
     Ваши группы:
-  </div>
+</div>
+<div class="col-sm-12">
   <% @groups.each do |group| %>
     <%= link_to group.title, group %></br>
     <%= group.description %></br></br>

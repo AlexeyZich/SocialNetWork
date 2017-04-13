@@ -1,0 +1,23 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+.user-avatar {
+  background-repeat: no-repeat;
+  width: 70px;
+  background-size: cover;
+  height: 70px;
+}
+.friends-avatar {
+  background-repeat: no-repeat;
+  width: 100px;
+  background-size: cover;
+  height: 100px;
+}
+
+.button-list {
+  a {
+    margin-bottom: 5px;
+  }
+}

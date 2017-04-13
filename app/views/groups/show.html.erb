@@ -3,26 +3,30 @@
 
 <div>
   <% if @group.author == current_user %>
-    <div>
-      <%= link_to 'Редактировать группу', edit_group_path(@group) %>  
+    <div class="form-group">
+      <%= link_to 'Редактировать группу', edit_group_path(@group), class: 'btn, btn-primary' %>  
     </div>
   <% end %>
   <% if @group.users.include? current_user%>
-    <div>
-      <%= link_to 'Отписаться ', unsubscribe_group_path(@group), method: :delete %>
-    </div>
+    <% if @group.author != current_user %>
+      <div>
+        <%= link_to 'Отписаться ', unsubscribe_group_path(@group), method: :delete, class: 'btn, btn-danger' %>
+      </div>
+    <% end %>
   <% end %>
   <% if !@group.users.include? current_user %>
-    <div>
-      <%= link_to 'Подписаться', subscribe_group_path(@group), method: :post %>  
-    </div>
+    <% if @group.author != current_user %>
+      <div>
+        <%= link_to 'Подписаться', subscribe_group_path(@group), method: :post, class: 'btn, btn-success'  %>  
+      </div>
+    <% end %>
   <% end %>
   <%= form_for :post, url: create_post_group_path(@group), method: :post do |f| %>
   <div class="field">
       <%= f.text_area :body, class: "form-control" %>
     </div>
     <div>
-      <%= f.submit t(:save), class: "ui blue labeled submit icon button" %>
+      <%= f.submit t(:save), class: "btn btn-primary" %>
     </div>
     <% end %>
 

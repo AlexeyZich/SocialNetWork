@@ -3,8 +3,19 @@
   <div class="ui list">
     <% @friends.each do |user| %>
       <div class="item">
-        <%= user.name %> <%= link_to 'Message me!', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: 'post'%>
+        <div class="col-xs-1">
+          <div class="user-avatar img-circle" style="background-image: url(<%= user.avatar.url(:thumb) %>)">
+          </div>
+        </div>
+        <div class="col-xs-11">
+        <h4>
+          <%= link_to [user.name, user.surname].join(' '), user %>
+        </h4>
+        <div>
+          <p><%= link_to 'Написать', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: 'post'%></p>
+        </div>
+        </div>
       </div>
     <% end %>
-</div>
+  </div>
 </div>

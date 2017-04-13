@@ -1,27 +1,23 @@
-SIDEBAR
-<div class="basic col-md-4">
-  <div class="col-md-offset-5">
-    <h1>Основа</h1>
-    <button>
-      <%= link_to 'Страница', current_user %>
-    </button></br>
-    <button class="">
-      <%= link_to 'Друзья', friend_requests_path %>
-    </button></br>
-    <button>
-      <%= link_to 'Новости', news_index_path %>
-    </button></br>
-    <button>
-      <%= link_to 'Группы', groups_path %>
-    </button></br>
-    <button>
-      <a href="">Фотографии</a>
-    </button></br>
-    <button>
-      <%= link_to 'Сообщения', conversations_path %>
-    </button></br>
-    <button>
-      <%= link_to 'Настройки', edit_user_path(current_user) %>
-    </button></br>
-  </div>
-</div>
+<ul class="nav nav-pills nav-stacked">
+  <li role="presentation" class="<%= (controller?(:users) && action?(:show) ? 'active' : '') %>">
+    <%= link_to 'Страница', current_user %>
+  </li>
+  <li role="presentation" class="<%= (controller?(:friend_requests) && action?(:index) ? 'active' : '') %>">
+    <%= link_to 'Друзья', friend_requests_path %>
+  </li>
+  <li role="presentation" class="<%= (controller?(:news) && action?(:index) ? 'active' : '') %>">
+    <%= link_to 'Новости', news_index_path %>
+  </li>
+  <li role="presentation" class="<%= (controller?(:groups) && action?(:index) ? 'active' : '') %>">
+  <%= link_to 'Группы', groups_path %>
+  </li>
+  <li role="presentation">
+    <a href="">Фотографии</a>
+  </li>
+  <li role="presentation" class="<%= (controller?(:conversations) && action?(:index) ? 'active' : '') %>">
+    <%= link_to 'Сообщения', conversations_path %>
+  </li>
+  <li role="presentation" class="<%= (controller?(:users) && action?(:edit) ? 'active' : '') %>">
+    <%= link_to 'Настройки', edit_user_path(current_user) %>
+  </li>
+</ul>

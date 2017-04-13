@@ -1,6 +1,6 @@
 <%= paginate @messages%>
 
-<div class="ui segment">
+<div class="col-sm-12">
   <% @messages.each do |message| %>
     <% if message.body %>
       <% user = User.find(message.user_id) %>
@@ -20,12 +20,16 @@
 </div>
 
 <%= form_for [@conversation, @message], html: {class: "ui reply form"} do |f| %>
-  <div class="field">
-    <%= f.text_area :body, class: "form-control" %>
+  <div class="form-group col-sm-12">
+    <div class="col-sm-6">
+      <%= f.text_area :body, class: "form-control" %>
+    </div>
   </div>
     <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
-  <div>
-    <%= f.submit "Add Reply", class: "ui blue labeled submit icon button" %>
+  <div class="col-sm-12">
+    <div class="col-sm-6">
+      <%= f.submit "Add Reply", class: "btn btn-primary" %>
+    </div>
   </div>
 
 <% end %>

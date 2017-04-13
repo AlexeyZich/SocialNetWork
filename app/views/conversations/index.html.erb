@@ -1,22 +1,28 @@
-<div class="ui segment">
-  <h3>Mailbox</h3>
+<h3>Сообщения</h3>
 
   <div class="ui list">
     <div class="item">
       <% @conversations.each do |conversation| %>
-        <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
-          <% if conversation.sender_id == current_user.id %>
-            <% recipient = User.find(conversation.recipient_id) %>
-          <% else %>
-            <% recipient = User.find(conversation.sender_id) %>
-          <% end %>
-          <%= link_to recipient.name, conversation_messages_path(conversation)%>
+        <% if conversation.sender_id == current_user.id %>
+          <% recipient = conversation.recipient %>
+          <div class="col-xs-1">
+            <div class="user-avatar img-circle" style="background-image: url(<%= recipient.avatar.url(:thumb) %>)">
+            </div>
+          </div>
+        <% else %>
+          <% recipient = conversation.sender %>
+          <div class="col-xs-1">
+            <div class="user-avatar img-circle" style="background-image: url(<%= recipient.avatar.url(:thumb) %>)">
+            </div>
+          </div>
         <% end %>
+        <div class="col-xs-11">
+        <h4><%= link_to [recipient.name, recipient.surname].join(' '), conversation_messages_path(conversation)%></h4>
+        <p><%= link_to 'Создать диалог', new_conversation_path %></p>
       <% end %>
     </div>
   </div>
 
-  <%= link_to 'Создать диалог', new_conversation_path %>
 </div>
 
 

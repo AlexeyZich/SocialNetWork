@@ -1,30 +1,31 @@
 <% if @friend_requests.count != 0 %>
-  <div>Новые заявки в друзья:</div>
-  <ul>
-    <% @friend_requests.each do |fr| %>
-      <% user = fr.sender %>
+  <h3>Новые заявки в друзья</h3>
+  <% @friend_requests.each do |fr| %>
+    <% user = fr.sender %>
 
-      <%= render user %>
+    <%= render user do %>
 
-      <%= form_for :friend_request, url: approve_friend_request_path(fr), method: :put do |f| %>
-        <%= f.submit 'Добавить в друзья' %>
-      <% end %>
-      <%= form_for :friend_request, url: decline_friend_request_path(fr), method: :put do |f| %>
-        <%= f.submit 'Оставить в подписчиках' %>
-      <% end %>
+      <ul class="list-unstyled button-list">
+        <li>
+          <%= link_to 'Добавить', approve_friend_request_path(fr), method: :put, class: 'btn btn-default' %>
+        </li>
+        <li>
+          <%= link_to 'Отклонить', decline_friend_request_path(fr), method: :put, class: 'btn btn-default' %>
+        </li>
+      </ul>
+
     <% end %>
-  </ul>
+
+  <% end %>
 <% end %>
 
 <% if @friends.count != 0 %>
-  <div>Друзья:</div>
-  <ul>
-    <% @friends.each do |user| %>
-      <%= render user %>
-      <%= link_to 'Удалить из друзей', delete_friend_user_path(user), method: :delete %>
-      <%# TODO: remove from friends %>
-    <% end %>
-  </ul>
+  <h3>Друзья:</h3>
+  <% @friends.each do |user| %>
+    <%= render user %>
+    <%= link_to 'Удалить из друзей', delete_friend_user_path(user), method: :delete, class: 'btn btn-default' %>
+    <%# TODO: remove from friends %>
+  <% end %>
 <% else %>
   <div>У вас еще нет друзей! :(</div>
 <% end %>

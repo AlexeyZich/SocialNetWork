@@ -1,27 +1,30 @@
-<div>
-  Имя: <%= @user.name %>
+<div class="row">
+  <div class="col-xs-6">
+    <h2><%= [@user.name, @user.surname].join(' ') %></h2>
+    <div>
+      <%= image_tag @user.avatar.url(:medium), class: 'img-rounded' %>
+    </div>
+    <dl>
+      <dt>Возраст:</dt>
+      <dd><%= @user.age %></dd>
+      <dt>Пол:</dt>
+      <dd><%= @user.male.nil? ? 'Не указан' : (@user.male ? 'Мужчина' : 'Женщина') %></dd>
+      <dt>Страна:</dt>
+      <dd><%= @user.country %></dd>
+      <dt>Город:</dt>
+      <dd><%= @user.city %></dd>
+    </dl>
+  </div>
+  <div class="col-xs-6">
+    <div>
+      <h3>О себе:</h3>
+    </div>
+    <div>
+      <p><%= @user.description %></p>
+    </div>
+  </div>
 </div>
-<div>
-  Фамилия: <%= @user.surname %>
-</div>
-<div>
-  <%= image_tag @user.avatar.url(:medium) %>
-</div>
-<div>
-  Возраст: <%= @user.age %>
-</div>
-<div>
-  Пол: <%= @user.male %>
-</div>
-<div>
-  Страна: <%= @user.country %>
-</div>
-<div>
-  Город: <%= @user.city %>
-</div>
-<div>
-  О себе: <%= @user.description %>
-</div>
+
 <div>
   <% if @user != current_user %>
     <% if !current_user.friends.include? @user %>
@@ -38,26 +41,36 @@
     <%= @user.name %> ваш друг
   <% end %>
 </div>
-<div>
-  Посты
-
-  <%= form_for :post, url: create_post_user_path(@user), method: :post do |f| %>
-    <div class="field">
-      <%= f.text_area :body, class: "form-control" %>
+<h3>Записи на стене:</h3>
+<% @user.posts.each do |post| %>
+  <div class="row">
+    <div class="col-xs-12">
+      <%= post.author.name %></br>
+      <%= post.body %></br>
+      <%= post.likes.count %></br>
+      <%= post.photos.count %></br></br>
+      ...
     </div>
-    <div>
-      <%= f.submit t(:save), class: "ui blue labeled submit icon button" %>
-    </div>
-  <% end %>
+  </div>
+<% end %>
 
-  <% if @post.present? %>
-    <%= @post.errors.full_messages  %>
-  <% end %>
+<div class="row">
+  <div class="col-xs-8">
+    <%= form_for :post, url: create_post_user_path(@user), method: :post do |f| %>
+      <div class="form-group">
+        <%= f.text_area :body, class: "form-control", style: 'max-width: 100%; max-height: 200px; min-height: 100px;' %>
+      </div>
+      <div>
+        <%= f.submit t(:save), class: "btn btn-default" %>
+      </div>
+    <% end %>
 
-  <% @user.posts.each do |post| %>
-    <%= post.author.name %></br>
-    <%= post.body %></br>
-    <%= post.likes.count %></br>
-    <%= post.photos.count %></br></br>
-  <% end %>
+    <% if @post.present? %>
+      <%= @post.errors.full_messages  %>
+    <% end %>
+  </div>
+
+  <div class="col-xs-4">
+  </div>
+
 </div>

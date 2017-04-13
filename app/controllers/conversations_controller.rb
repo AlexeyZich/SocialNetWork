@@ -3,7 +3,7 @@ class ConversationsController < ApplicationController
 
   def index
     @user = User.all
-    @conversations = Conversation.all
+    @conversations = Conversation.by_user(current_user)
   end
 
   def create

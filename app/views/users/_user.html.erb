@@ -1,5 +1,16 @@
-<%= link_to user do %>
-  <li>
-    <div><%= [user.name, user.surname].join(' ') %></div>
-  </li>
-<% end %>
+<div class="row">
+  <%= link_to user do %>
+    <div class="col-sm-12 col-md-2">
+      <div class="friends-avatar img-circle" style="background-image: url(<%= user.avatar.url(:thumb) %>)"></div>
+    </div>
+  <% end %>
+
+  <div class="col-sm-12 col-md-10">
+    <%= link_to user do %>
+      <h5><%= [user.name, user.surname].join(' ') %></h5>
+    <% end %>
+    <% if yield.present? %>
+      <%= yield %>
+    <% end %>
+  </div>
+</div>

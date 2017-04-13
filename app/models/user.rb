@@ -22,6 +22,12 @@
 #  country                :string
 #  city                   :string
 #  description            :text
+#  avatar_file_name       :string
+#  avatar_content_type    :string
+#  avatar_file_size       :integer
+#  avatar_updated_at      :datetime
+#  lat                    :decimal(10, 6)
+#  lng                    :decimal(10, 6)
 #
 # Indexes
 #
@@ -47,8 +53,8 @@ class User < ApplicationRecord
 
   MALE_SET = [['Мужской', 1], ['Женский', 0], ['Не указан', 'nil']].freeze
 
-  validates :name, length: { in: 2..15}, format: { with: /\A[A-zА-я]+\z/,
-                           message: 'допустимы только буквы' }
+  # validates :name, length: { in: 2..15}, format: { with: /\A[A-zА-я]+\z/,
+  #                          message: 'допустимы только буквы' }
   # validates :surname, length: { in: 2..20},  format: { with: /\A[A-zА-я]+\z/, 
   #                             message: 'допустимы только буквы' }
   # validates :age, numericality: true
@@ -74,4 +80,8 @@ class User < ApplicationRecord
 
     fr.destroy_all
   end
+
+  # def nearby_people
+  #   User.select('*', "(acos(sin(#{lat}) * sin(users.lat) + cos(#{lat}) * cos(users.lat) * cos(users.lng - (#{lng}))) * 6371) as distance").order('distance ASC')
+  # end
 end

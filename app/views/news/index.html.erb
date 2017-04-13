@@ -1,10 +1,11 @@
-<div>Новости</div>
 <div>
-  <ul>
-    <% @posts.each do |post| %>
-      ________<br>
+<h2>Новости</h2>
+</div>
+<div>
+  <% @posts.each do |post| %>
+    <div class="col-sm-12">
       <%= render 'news/news', post: post %><br>
-      ________ <br><br>
-    <% end %>
-  </ul>
+      <br><br>
+    </div>
+  <% end %>
 </div>

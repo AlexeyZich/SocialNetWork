@@ -5,7 +5,7 @@
 #  id           :integer          not null, primary key
 #  sender_id    :integer
 #  recipient_id :integer
-#  approved     :boolean          default("false")
+#  approved     :boolean
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #

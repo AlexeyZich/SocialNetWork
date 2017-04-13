@@ -4,6 +4,7 @@ class WelcomeController < ApplicationController
   layout 'landing'
 
   def index
+    redirect_to new_user_session_path 
   end
 
   protected
