@@ -32,7 +32,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'devise-i18n'
 gem 'kaminari'
-gem "paperclip", "~> 5.0.0"
+gem "paperclip", "~> 6.0.0"
 gem 'bootstrap-sass', '~> 3.3.6'
 
 group :development, :test do
